@@ -1,0 +1,267 @@
+{% extends 'frontend/base.html' %}
+{% load i18n %}
+
+
+
+{% block main %}
+
+
+    <!-- ====== Page Header ====== -->
+    <div class="page-header background-overlay" style="background-image:url(/static/frontend/images/page-header-one.png)">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">                
+                    <h2 class="page-title">{% trans "Welcome to CarRoom!" %}</h2>
+                    <p class="page-description">Our All Cars</p>        
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row-->
+        </div><!-- /.container-fluid -->           
+    </div><!-- /.page-header -->
+
+
+  <!-- ====== Available Available Block ====== --> 
+  <div class="available-block vehicle-padding bg-gray-color">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+
+                    {% if cars  %}
+                    <div class="col-md-9 col-sm-9 clearfix">
+                        <h2 class="available-title">Available Vehicles</h2>
+                    </div><!-- /.col-md-9 -->
+
+                    {% else %}
+                    <div class="col-md-9 col-sm-9 clearfix">
+                        <h2 class="available-title">Not found</h2>
+                    </div><!-- /.col-md-9 -->
+
+                    {% endif %}
+
+
+                    <div class="col-md-3 col-sm-3" style="display:none">
+                        <div class="vehicle-category pull-right">
+                            <select name="vehicle-category" id="vehicle-cat-list">
+                                <option value="volvo">filters</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div><!-- /.vehicle-category -->
+                    </div><!-- /.col-md-3 -->
+                </div><!-- /.row -->
+
+                <div class="row">
+                  
+                    {% for car in cars %}
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="vehicle-content theme-yellow">
+                            <div class="vehicle-thumbnail">
+                                <a href="{% url "car_detail"  car.id  %}">
+                                    <img src="{{car.image.url}}" alt="car-item" />
+                                </a>
+                            </div><!-- /.vehicle-thumbnail -->
+                            <div class="vehicle-bottom-content">
+                                <h2 class="vehicle-title"><a href="{% url "car_detail"  car.id  %}">{{car.name | truncatechars:15 }}</a></h2>
+                                <div class="vehicle-meta">
+                                    <div class="meta-item">
+                                        <span>Rent:  ${{car.daily_rent}} / </span> Day
+                                    </div>
+                                </div><!-- /.meta-left -->
+                            </div><!-- /.vehicle-bottom-content -->
+                        </div><!-- /.car-content -->
+                    </div><!-- /.col-md-4 -->
+                  
+                   
+                  {% endfor %}
+                
+                </div><!-- /.row -->
+
+                <div class="row">
+                    <div class="col-md-12 clearfix">
+                        <div class="pagination-link">
+
+
+
+                       
+
+                            {% if is_paginated %}
+                            {% load my_tags %}
+<ul class="pagination">
+    {% if page_obj.number == 1 %}
+        <li class="disabled"><span>⇤</span></li>
+    {% else %}
+        <li><a class="page-link" href="?{% url_replace request 'page' 1 %}">⇤</a></li>
+    {% endif %}
+    {% if page_obj.has_previous %}
+        <li><a class="page-link" href="?{% url_replace request 'page' page_obj.previous_page_number %}">&laquo;</a></li>
+    {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator|proper_paginate:page_obj.number %}
+        {% if page_obj.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+            <li><a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+        <li><a class="page-link" href="?{% url_replace request 'page' page_obj.next_page_number %}">&raquo;</a></li>
+    {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+    {% if page_obj.number == paginator.num_pages %}
+        <li class="disabled"><span>⇥</span></li>
+    {% else %}
+        <li><a class="page-link" href="?{% url_replace request 'page' paginator.num_pages %}">⇥</a></li>
+    {% endif %}
+</ul>
+{% endif %}
+                            
+
+
+
+
+                        </div><!-- /.pagination -->
+                    </div><!-- /.col-md-12 -->
+                </div><!-- /.row -->
+            </div><!-- /.col-md-9 -->
+
+            <div class="col-md-3">
+                <div class="vehicle-sidebar">                    
+                    <form action="/" method="get" class="advance-search-query" autocomplete="off">
+                        <h2 class="form-title">Filters</h2>
+                        <div class="form-content available-filter">
+                            <div class="form-group">
+                                <div class="input">
+                                    <input type="text" name="name__icontains" placeholder="quick search" class="calendar form-controller">
+                                </div><!--/.input-->
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group" style="display:none">
+                                <label>Available On</label>
+                                <div class="input">
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" class="date-start  date-selector form-controller" placeholder="Hire On">
+                                </div><!--/.input-->
+                                <div class="input">
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" class="date-end date-selector form-controller" placeholder="Return On">
+                                </div><!--/.input-->
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label>Price</label>
+                                <div class="input">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <input type="text" placeholder="$12" name="daily_rent__gte" class="calendar form-controller min">
+                                        </div><!-- /.col-xs-6 -->
+                                        <div class="col-xs-6">
+                                            <input type="text" placeholder="$1500" name="daily_rent__lte" class="calendar form-controller">
+                                        </div><!-- /.col-xs-6 -->
+                                    </div><!-- /.row -->
+                                </div><!--/.input-->
+                            </div><!-- /.form-group -->
+
+                            <div class="advance-filters">
+                                <label>Car Type</label>
+                                <ul class="checkbox-content">
+                                    <li>
+
+                                        {% if request.GET.type == 'coupe'  %}
+
+                                        <input type="checkbox"  checked id="cupon" name="type" value="coupe">
+
+
+                                        {% else  %}
+
+                                         <input type="checkbox"  id="cupon" name="type" value="coupe">
+
+
+                                        {% endif %}
+
+                                        
+                                        
+                                        <label for="cupon">Coupe</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="limo" name="type" value="limo">
+                                        <label for="limo">Limo</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="van" name="type" value="van">
+                                        <label for="van">Van</label>
+                                    </li>
+                                </ul>
+
+                                <label>Categories</label>
+                                <ul class="checkbox-content">
+                                  
+                                    <li>
+                                        <input type="checkbox" id="family" name="category" value="family">
+                                        <label for="family">Family</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="intermediate" name="category" value="intermediate">
+                                        <label for="intermediate">Intermediate</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="mini-1" name="category" value="mini">
+                                        <label for="mini-1">Mini</label>
+                                    </li>
+                                   
+                                </ul>
+
+                                <label>Car Brands</label>
+                                <ul class="checkbox-content">
+                                    <li>
+                                        <input type="checkbox" id="astonmartin-1" name="brand" value="astonmartin">
+                                        <label for="astonmartin-1">Astonmartin</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="audi-1" name="brand" value="audi">
+                                        <label for="audi-1">Audi</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="ford-1" name="brand" value="ford">
+                                        <label for="ford-1">Ford</label>
+                                    </li>
+                                    
+                                   
+                                </ul>
+
+                                <label>Car Models</label>
+                                <ul class="checkbox-content">
+                                   
+                                    <li>
+                                        <input type="checkbox" id="audi-a9-1" name="model" value="a9">
+                                        <label for="audi-a9-1">Audi A9</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="ford-t-van" name="model" value="t van">
+                                        <label for="ford-t-van">Ford T Van</label>
+                                    </li>
+                                   
+                                    <li>
+                                        <input type="checkbox" id="terasa--2007-1" name="model" value="c-class">
+                                        <label for="terasa--2007-1">C - Class</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="filter-button">
+                                <button type="submit" class="button nevy-bg">Filter</button>
+                                <a href="/" class="button nevy-bg">Reset</a>
+                            </div><!-- /.filter-button -->
+                        </div><!-- /.from-cotent -->
+                    </form><!-- /.advance_search_query -->
+                </div><!-- /.vehicle-sidebar -->
+            </div><!-- /.col-md-3 -->
+        </div><!-- /.row -->
+    </div><!-- /.container  -->
+</div><!-- /.Popular Vehicle Block --> 
+
+
+{% endblock %}

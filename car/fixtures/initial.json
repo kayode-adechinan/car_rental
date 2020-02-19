@@ -1,0 +1,152 @@
+[
+{
+  "model": "car.car",
+  "pk": 1,
+  "fields": {
+    "name": "Audi A9",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Audi A9 luxury sports car",
+    "daily_rent": 300,
+    "type":"coupe",
+    "category":"mini",
+    "brand":"audi",
+    "model":"a9",
+    "is_available": true
+  }
+},
+
+
+{
+  "model": "car.car",
+  "pk": 2,
+  "fields": {
+    "name": "Ford T Van",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Ford T Van luxury sports car",
+    "daily_rent": 350,
+    "type":"limo",
+    "category":"intermediate",
+    "brand":"ford",
+    "model":"t van",
+    "is_available": true
+  }
+},
+
+{
+  "model": "car.car",
+  "pk": 3,
+  "fields": {
+    "name": "Aston Martin C Class",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Aston Martin C Class luxury sports car",
+    "daily_rent": 541,
+    "type":"van",
+    "category":"family",
+    "brand":"astonmartin",
+    "model":"c-class",
+    "is_available": true
+  }
+},
+
+{
+  "model": "car.car",
+  "pk": 4,
+  "fields": {
+    "name": "Audi A9",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Audi A9 luxury sports car",
+    "daily_rent": 300,
+    "type":"coupe",
+    "category":"mini",
+    "brand":"audi",
+    "model":"a9",
+    "is_available": true
+  }
+},
+
+{
+  "model": "car.car",
+  "pk": 5,
+  "fields": {
+    "name": "Audi A9",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Audi A9 luxury sports car",
+    "daily_rent": 300,
+    "type":"coupe",
+    "category":"mini",
+    "brand":"audi",
+    "model":"a9",
+    "is_available": true
+  }
+},
+
+
+{
+  "model": "car.car",
+  "pk": 6,
+  "fields": {
+    "name": "Ford T Van",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Ford T Van luxury sports car",
+    "daily_rent": 350,
+    "type":"limo",
+    "category":"intermediate",
+    "brand":"ford",
+    "model":"t van",
+    "is_available": true
+  }
+},
+
+
+{
+  "model": "car.car",
+  "pk": 7,
+  "fields": {
+    "name": "Ford T Van",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Ford T Van luxury sports car",
+    "daily_rent": 350,
+    "type":"limo",
+    "category":"intermediate",
+    "brand":"ford",
+    "model":"t van",
+    "is_available": true
+  }
+},
+
+{
+  "model": "car.car",
+  "pk": 8,
+  "fields": {
+    "name": "Aston Martin C Class",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Aston Martin C Class luxury sports car",
+    "daily_rent": 541,
+    "type":"van",
+    "category":"family",
+    "brand":"astonmartin",
+    "model":"c-class",
+    "is_available": true
+  }
+},
+
+
+{
+  "model": "car.car",
+  "pk": 9,
+  "fields": {
+    "name": "Aston Martin C Class",
+    "image": "car_images/bmw-i8.jpg",
+    "description": "Aston Martin C Class luxury sports car",
+    "daily_rent": 541,
+    "type":"van",
+    "category":"family",
+    "brand":"astonmartin",
+    "model":"c-class",
+    "is_available": true
+  }
+}
+
+
+
+]
